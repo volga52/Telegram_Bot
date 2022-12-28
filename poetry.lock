@@ -117,6 +117,14 @@ python-versions = ">=3.6.0"
 unicode_backport = ["unicodedata2"]
 
 [[package]]
+name = "dispatcher"
+version = "1.0"
+description = "A library for event-driven programming"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "environs"
 version = "9.5.0"
 description = "simplified environment variable parsing"
@@ -233,7 +241,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "225d63b9ec4867674374d09b63c049f9b2385d8d7312e87bc4297ff3b0dc6bb5"
+content-hash = "9bf520f563ae59d6bdea5a95bff646ff4d31e4338f9e4166dd68c7b1f5cffb43"
 
 [metadata.files]
 aiogram = []
@@ -245,6 +253,7 @@ attrs = []
 babel = []
 certifi = []
 charset-normalizer = []
+dispatcher = []
 environs = []
 frozenlist = []
 idna = []
