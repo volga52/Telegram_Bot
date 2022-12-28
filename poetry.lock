@@ -37,6 +37,21 @@ yarl = ">=1.0,<2.0"
 speedups = ["aiodns", "brotli", "cchardet"]
 
 [[package]]
+name = "aioredis"
+version = "2.0.1"
+description = "asyncio (PEP 3156) Redis support"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+async-timeout = "*"
+typing-extensions = "*"
+
+[package.extras]
+hiredis = ["hiredis (>=1.0)"]
+
+[[package]]
 name = "aiosignal"
 version = "1.3.1"
 description = "aiosignal: a list of registered asynchronous callbacks"
@@ -196,6 +211,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "typing-extensions"
+version = "4.4.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "yarl"
 version = "1.8.2"
 description = "Yet another URL library"
@@ -210,11 +233,12 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b33e0ebd8c7b0ba6eed3c0bb218c2b36b8e039f9b01c24384d2dba1c0a7bf904"
+content-hash = "225d63b9ec4867674374d09b63c049f9b2385d8d7312e87bc4297ff3b0dc6bb5"
 
 [metadata.files]
 aiogram = []
 aiohttp = []
+aioredis = []
 aiosignal = []
 async-timeout = []
 attrs = []
@@ -230,4 +254,5 @@ multidict = []
 packaging = []
 python-dotenv = []
 pytz = []
+typing-extensions = []
 yarl = []
