@@ -5,7 +5,7 @@ import asyncio
 import logging
 
 from tg_bot.config import load_config
-
+from tg_bot.handlers.echo import register_echo
 
 logger = logging.getLogger(__name__)
 
@@ -45,8 +45,7 @@ def register_all_filters(dp):
 
 
 def register_all_handlers(dp):
-    # register_admin()
-    pass
+    register_echo(dp)
 
 
 if __name__ == '__main__':
