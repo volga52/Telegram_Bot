@@ -5,6 +5,7 @@ import asyncio
 import logging
 
 from tg_bot.config import load_config
+from tg_bot.filters.admin import AdminFilter
 from tg_bot.handlers.echo import register_echo
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,7 @@ def register_all_middlewares(dp):
 
 
 def register_all_filters(dp):
-    dp.filters_factory()
+    dp.filters_factory.bind(AdminFilter)
 
 
 def register_all_handlers(dp):
