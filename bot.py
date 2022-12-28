@@ -7,6 +7,7 @@ import logging
 from tg_bot.config import load_config
 from tg_bot.filters.admin import AdminFilter
 from tg_bot.handlers.echo import register_echo
+from tg_bot.middlewares.db import DbMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +39,7 @@ async def main():
 
 
 def register_all_middlewares(dp):
-    dp.setup_middleware()
+    dp.setup_middleware(DbMiddleware())
 
 
 def register_all_filters(dp):
