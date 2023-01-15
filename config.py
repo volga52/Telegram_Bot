@@ -14,8 +14,8 @@ class Settings(BaseSettings):
     use_redis: bool
 
     db_user: str = 'volga52'
-    pg_password: str = 'examplePostgresPass'
-    db_pass: str = 'pg_password'
+    pg_password: SecretStr = 'examplePostgresPass'
+    db_pass: SecretStr = 'pg_password'
     db_host: ipaddress.IPv4Address
 
     # Вложенный класс с дополнительными указаниями для настроек
