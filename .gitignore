@@ -3,3 +3,7 @@ __pycache__/
 db.sqlite3
 media
 .venv
+*.private
+.env
+temp
+ideal
