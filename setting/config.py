@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     db_user: str = 'volga52'
     pg_password: SecretStr = 'examplePostgresPass'
     db_pass: SecretStr = 'pg_password'
+    db_name: str
     db_host: ipaddress.IPv4Address
 
     # Вложенный класс с дополнительными указаниями для настроек
@@ -31,11 +32,23 @@ class Settings(BaseSettings):
 
 config = Settings()
 
+BOT_CONTAINER_NAME = config.bot_container_name
+BOT_IMAGE_NAME = config.bot_image_name
+BOT_NAME = config.bot_name
+BOT_TOKEN = config.bot_token.get_secret_value()
+ADMINS = config.admins
+USE_REDIS = config.use_redis
+
+DB_USER = config.db_user
+PG_PASSWORD = config.pg_password.get_secret_value()
+DB_PASS = config.db_pass.get_secret_value()
+DB_NAME = config.db_name
+DB_HOST = config.db_host
+
 if __name__ == '__main__':
     # При импорте файла сразу создастся
     # и провалидируется объект конфига,
     # который можно далее импортировать из разных мест
-    config = Settings()
 
     for key, value in config:
         print(f'{key}: {value} <{type(value)}>')
