@@ -1,4 +1,5 @@
 import ipaddress
+import pathlib
 
 from pydantic import BaseSettings, SecretStr
 
@@ -23,10 +24,12 @@ class Settings(BaseSettings):
         # Имя файла, откуда будут прочитаны данные
         # (относительно текущей рабочей директории)
         # env_file = '.env'
-        env_file = '.env'
+        env_file = f"{pathlib.Path(__file__).resolve().parent}/.env"
         # Кодировка читаемого файла
         env_file_encoding = 'utf-8'
 
+
+config = Settings()
 
 if __name__ == '__main__':
     # При импорте файла сразу создастся

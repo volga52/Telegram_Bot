@@ -4,6 +4,6 @@ db.sqlite3
 media
 .venv
 *.private
-.env
+setting/.env
 temp
 ideal

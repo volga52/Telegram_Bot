@@ -1,36 +1,22 @@
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
+from setting.config import config
 
-bot = Bot(token='')
+
+bot = Bot(token=config.bot_token.get_secret_value())
 dp = Dispatcher(bot)
-
-
-# @dp.message_handler()
-# async def get_message(message: types.Message):
-#     chat_id = message.chat.id
-#     # text = message.text
-#     text = 'Некоторый текст'
-#
-#     # await bot.send_message(chat_id=chat_id, text=text)
-#     send_message = await bot.send_message(chat_id=chat_id, text=text)
-#     print(send_message.to_python())
 
 
 @dp.message_handler()
 async def get_message(message: types.Message):
-    send_message = await bot.send_photo(chat_id=None, photo='')
-    print(send_message.photo[-1].file_unique_id)
-    # У каждого фото свой id
+    chat_id = message.chat.id
+    # text = message.text
+    text = 'Некоторый текст'
 
-    result = await bot.set_chat_title(chat_id=None, title='Новое название')
-    print(result)
-
-    invite_link = await bot.export_chat_invite_link(chat_id=None)
-    print(invite_link)
-
-    bot_user = await bot.get_me()
-    print(bot_user.username)
+    # await bot.send_message(chat_id=chat_id, text=text)
+    send_message = await bot.send_message(chat_id=chat_id, text=text)
+    print(send_message.to_python())
 
 
-executor.start_polling()
+executor.start_polling(dp)
