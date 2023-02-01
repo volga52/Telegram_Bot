@@ -1,5 +1,6 @@
 import ipaddress
 import pathlib
+import os
 
 from pydantic import BaseSettings, SecretStr
 
@@ -44,6 +45,12 @@ PG_PASSWORD = config.pg_password.get_secret_value()
 DB_PASS = config.db_pass.get_secret_value()
 DB_NAME = config.db_name
 DB_HOST = config.db_host
+
+# родительская директория
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# путь до базы данных
+DATABASE = os.path.join('sqlite:///'+BASE_DIR, DB_NAME)
+
 
 if __name__ == '__main__':
     # При импорте файла сразу создастся

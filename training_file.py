@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
-from setting.config import config
+from setting.config import config, DATABASE
 
 
 bot = Bot(token=config.bot_token.get_secret_value())
