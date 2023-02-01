@@ -8,6 +8,7 @@ authors = ["Евгений <volga52@bk.ru>"]
 python = "^3.9"
 aiogram = "^2.23.1"
 SQLAlchemy = "^1.4.46"
+emoji = "^2.2.0"
 
 [tool.poetry.dev-dependencies]
 
