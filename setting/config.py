@@ -34,6 +34,8 @@ from setting.setting_core import Settings
 
 config = Settings()
 
+BOT_ID = 1573514660
+
 BOT_CONTAINER_NAME = config.bot_container_name
 BOT_IMAGE_NAME = config.bot_image_name
 BOT_NAME = config.bot_name
