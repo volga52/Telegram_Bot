@@ -9,6 +9,7 @@ from aiogram.types import ParseMode, InputMediaVideo, InputMediaPhoto, \
 from emoji import emojize
 
 from setting.config import BOT_TOKEN
+from markup import markup as kb
 
 
 bot = Bot(token=BOT_TOKEN)
@@ -38,8 +39,68 @@ async def process_help_command(message: types.Message):
     #                     "тебе в ответ!")
     msg = text(bold('Я могу ответить на следующие команды:'),
                '/voice', '/photo', '/group', '/note', '/file',
-               '/test', '/testpre', '/info', sep='\n')
+               '/test', '/testpre', '/info', '/play', '/hikb1',
+               '/hikb2', '/hikb3', '/hikb4', '/hikb5', '/hikb6',
+               '/hikb7', '/rmkbs', sep='\n')
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
+
+
+# Демонстрация работы клавиатур
+
+@dp.message_handler(commands=['play'])
+async def process_start_command(message: types.Message):
+    await message.reply("Привет!", reply_markup=kb.greet_kb)
+
+
+@dp.message_handler(commands=['hikb1'])
+async def process_hi1_command(message: types.Message):
+    await message.reply("Первое - изменяем размер клавиатуры",
+                        reply_markup=kb.greet_kb1)
+
+
+@dp.message_handler(commands=['hikb2'])
+async def process_hi2_command(message: types.Message):
+    await message.reply("Второе - прячем клавиатуру после одного нажатия",
+                        reply_markup=kb.greet_kb2)
+
+
+@dp.message_handler(commands=['hikb3'])
+async def process_hi3_command(message: types.Message):
+    await message.reply("Третье - добавляем больше кнопок",
+                        reply_markup=kb.markup3)
+
+
+@dp.message_handler(commands=['hikb4'])
+async def process_hi4_command(message: types.Message):
+    await message.reply("Четвертое - расставляем кнопки в ряд",
+                        reply_markup=kb.markup4)
+
+
+@dp.message_handler(commands=['hikb5'])
+async def process_hi5_command(message: types.Message):
+    await message.reply("Пятое - добавляем ряды кнопок",
+                        reply_markup=kb.markup5)
+
+
+@dp.message_handler(commands=['hikb6'])
+async def process_hi6_command(message: types.Message):
+    await message.reply("Шестое - запрашиваем контакт и геолокацию\n"
+                        "Эти две кнопки не зависят друг от друга\n"
+                        "В Telegram Desktop пока нельзя делиться геолокацией",
+                        reply_markup=kb.markup_request)
+
+
+@dp.message_handler(commands=['hikb7'])
+async def process_hi7_command(message: types.Message):
+    await message.reply("Седьмое - все методы вместе",
+                        reply_markup=kb.markup_big)
+
+
+@dp.message_handler(commands=['rmkbs'])
+async def process_rm_command(message: types.Message):
+    await message.reply("Убираем шаблоны сообщений",
+                        reply_markup=kb.ReplyKeyboardRemove())
+# Конец демонстрации работы клавиатур
 
 
 @dp.message_handler(commands=['test'])
