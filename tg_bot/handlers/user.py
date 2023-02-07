@@ -1,5 +1,5 @@
 from aiogram import Dispatcher
-from  aiogram.types import Message
+from aiogram.types import Message
 
 from tg_bot.services.setting_commands import set_starting_commands
 
