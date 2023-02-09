@@ -41,11 +41,37 @@ async def process_help_command(message: types.Message):
                '/voice', '/photo', '/group', '/note', '/file',
                '/test', '/testpre', '/info', '/play', '/hikb1',
                '/hikb2', '/hikb3', '/hikb4', '/hikb5', '/hikb6',
-               '/hikb7', '/rmkbs', sep='\n')
-    await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
+               '/hikb7', '/rmkbs', '/firstbtn', '/secondbtn', sep='\n')
+    await message.reply(msg, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 # Демонстрация работы клавиатур
+@dp.callback_query_handler(lambda c: c.data == 'button1')
+async def process_callback_button_first_dtn(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id,
+                           'Нажата первая кнопка!')
+
+
+@dp.callback_query_handler(lambda c: c.data and c.data.startswith('btn'))
+async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
+    code = callback_query.data[-1]
+    if code.isdigit():
+        code = int(code)
+    if code == 2:
+        await bot.answer_callback_query(callback_query.id,
+                                        text='Нажата вторая кнопка')
+    elif code == 5:
+        await bot.answer_callback_query(
+            callback_query.id,
+            text='Нажата кнопка с номером 5.\n'
+                 'А этот текст может быть длиной до 200 символов 😉',
+            show_alert=True)
+    else:
+        await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id,
+                           f'Нажата инлайн кнопка! code={code}')
+
 
 @dp.message_handler(commands=['play'])
 async def process_start_command(message: types.Message):
@@ -100,6 +126,16 @@ async def process_hi7_command(message: types.Message):
 async def process_rm_command(message: types.Message):
     await message.reply("Убираем шаблоны сообщений",
                         reply_markup=kb.ReplyKeyboardRemove())
+
+
+@dp.message_handler(commands=['firstbtn'])
+async def process_command_first_btn(message: types.Message):
+    await message.reply("Первая инлайн кнопка", reply_markup=kb.inline_kb1)
+
+
+@dp.message_handler(commands=['secondbtn'])
+async def process_command_2(message: types.Message):
+    await message.reply("Отправляю все возможные кнопки", reply_markup=kb.inline_kb_full)
 # Конец демонстрации работы клавиатур
 
 
@@ -171,7 +207,7 @@ async def process_testpre_command(message: types.Message):
     message_text = pre(emojize('Ха! Не в этот раз \N{Smirking Face}'))
     await bot.send_message(message.from_user.id, message_text)"""))
     await bot.send_message(message.from_user.id, message_text,
-                           parse_mode=ParseMode.MARKDOWN)
+                           parse_mode=ParseMode.MARKDOWN_V2)
 
 
 @dp.message_handler()
@@ -184,8 +220,8 @@ async def unknown_message(msg: types.Message):
     message_text = text(emojize('Я не знаю, что с этим делать :astonished:'),
                         italic('\nЯ просто напомню,'), 'что есть',
                         code('команда'), '/help')
-    await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN)
+    await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True)
