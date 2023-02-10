@@ -2,12 +2,14 @@ HELP_PREVIEW = 'Я могу ответить на следующие коман�
 HELP_COMMAND_LIST = ['/voice', '/photo', '/group', '/note', '/file', '/test',
                      '/testpre', '/info', '/play', '/hikb1', '/hikb2',
                      '/hikb3', '/hikb4', '/hikb5', '/hikb6', '/hikb7',
-                     '/rmkbs', '/firstbtn', '/secondbtn']
+                     '/rmkbs', '/firstbtn', '/secondbtn', '/Описание']
+
 TESTPRE = """@dp.message_handler(commands=['testpre'])
     async def process_testpre_command(message: types.Message):
         message_text = pre(emojize('Ха! Не в этот раз \N{Smirking Face}'))
         await bot.send_message(message.from_user.id, message_text)"""
 UNKNOWN = 'Я не знаю, что с этим делать :astonished:'
+DESCRIPTION = 'Этот бот - Мой персональный, учебный бот.\nНе слишком пафосно? Нет?'
 
 CAT_BIG_EYES = 'AgACAgIAAxkDAAMvY9ljutWlHQpQSY0G1zKUyUfMExIAAg_HMRtdPMlKoV2pgOTsuh0BAAMCAAN4AAMtBA'
 KITTENS = [

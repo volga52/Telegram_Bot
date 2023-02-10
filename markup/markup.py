@@ -67,4 +67,22 @@ inline_kb_full.add(InlineKeyboardButton(
     'Уроки aiogram', url='https://surik00.gitbooks.io/aiogram-lessons/content/'))
 
 
+class Keyboards:
+    """
+    Класс Keyboards предназначен для создания разметки интерфейса бота
+    """
+    def __init__(self):
+        self.markup = None
+        self.BD = None
 
+    def menu_on_start(self):
+        button01 = KeyboardButton('/test')
+        button02 = KeyboardButton('/info')
+        button03 = KeyboardButton('/Описание')
+
+        self.markup = ReplyKeyboardMarkup(resize_keyboard=True,
+                                          one_time_keyboard=True)
+        self.markup.add(button01).add(button02).insert(button03)
+        self.markup.row(button01, button02, button03)
+
+        return self.markup

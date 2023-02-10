@@ -4,19 +4,23 @@ from emoji import emojize
 from aiogram import types
 from aiogram.utils.markdown import text, bold, pre, code, italic
 from aiogram.types import ParseMode, InputMediaVideo, InputMediaPhoto, \
-    ChatActions, ContentType
+    ChatActions, ContentType, ReplyKeyboardRemove
 
 from handlers.handler import Handler
 from setting.messages import *
 
 
 class HandlersCommands(Handler):
+    """
+    Класс обрабатывает основные входящие команды (/start, /help)
+    """
     def __init__(self, dispatcher):
         super().__init__(dispatcher)
 
     async def process_start_command(self, message: types.Message):
         await message.reply("Привет!\nНапиши мне что-нибудь!\nИспользуй /help,"
-                            "чтобы узнать список доступных команд!")
+                            "чтобы узнать список доступных команд!",
+                            reply_markup=self.markup.menu_on_start())
 
     async def process_help_command(self, message: types.Message):
         msg = text(bold(HELP_PREVIEW), *HELP_COMMAND_LIST, sep='\n')
@@ -30,8 +34,12 @@ class HandlersCommands(Handler):
         text = 'Инфа отправлена'
         print(message.to_python())
 
-        send_message = await message.answer(text, parse_mode='HTML')
+        send_message = await message.answer(text, parse_mode='HTML',
+                                            reply_markup=ReplyKeyboardRemove())
         print(send_message.to_python())
+
+    async def process_description_command(self, message: types.Message):
+        await message.answer(DESCRIPTION, parse_mode="HTML")
 
     async def process_voice_command(self, message: types.Message):
         await self.bot.send_voice(message.from_user.id, VOICE,
@@ -90,6 +98,9 @@ class HandlersCommands(Handler):
                                          commands=['file'])
         self.dp.register_message_handler(self.process_testpre_command,
                                          commands=['testpre'])
+        self.dp.register_message_handler(self.process_description_command,
+                                         commands=['description', 'Описание'])
+        # Самая последняя регистрация
         self.dp.register_message_handler(self.echo_message)
 
     # @dp.message_handler(content_types=ContentType.ANY)

@@ -2,13 +2,15 @@ import abc
 # import markup.markup as kb
 from aiogram.dispatcher import Dispatcher
 
+from markup.markup import Keyboards
+
 
 class Handler(metaclass=abc.ABCMeta):
 
-    def __init__(self, dp: Dispatcher = None, markup=None):
+    def __init__(self, dp: Dispatcher = None):
         self.dp = dp
         self.bot = dp.bot
-        self.markup = markup
+        self.markup = Keyboards()
 
     @abc.abstractmethod
     async def handler(self):
