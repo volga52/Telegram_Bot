@@ -2,7 +2,8 @@ HELP_PREVIEW = 'Я могу ответить на следующие коман�
 HELP_COMMAND_LIST = ['/voice', '/photo', '/group', '/note', '/file', '/test',
                      '/testpre', '/info', '/play', '/hikb1', '/hikb2',
                      '/hikb3', '/hikb4', '/hikb5', '/hikb6', '/hikb7',
-                     '/rmkbs', '/firstbtn', '/secondbtn', '/Описание']
+                     '/rmkbs', '/firstbtn', '/secondbtn', '/Описание',
+                     '/animal']
 
 TESTPRE = """@dp.message_handler(commands=['testpre'])
     async def process_testpre_command(message: types.Message):

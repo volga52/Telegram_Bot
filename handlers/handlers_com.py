@@ -76,9 +76,6 @@ class HandlersCommands(Handler):
         await self.bot.send_message(message.from_user.id, message_text,
                                     parse_mode=ParseMode.MARKDOWN_V2)
 
-    async def echo_message(self, msg: types.Message):
-        await self.bot.send_message(msg.from_user.id, msg.text)
-
     def handler(self):
         self.dp.register_message_handler(self.process_start_command,
                                          commands=['start'])
@@ -100,11 +97,24 @@ class HandlersCommands(Handler):
                                          commands=['testpre'])
         self.dp.register_message_handler(self.process_description_command,
                                          commands=['description', 'Описание'])
-        # Самая последняя регистрация
-        self.dp.register_message_handler(self.echo_message)
 
     # @dp.message_handler(content_types=ContentType.ANY)
     # async def unknown_message(msg: types.Message):
     #     message_text = text(emojize(UNKNOWN), italic('\nЯ просто напомню,'),
     #                         'что есть', code('команда'), '/help')
     #     await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN_V2)
+
+
+class HandlerEcho(Handler):
+    """
+    Класс возвращает неизвестные команды и просто неизвестную информацию
+    """
+    def __init__(self, dispatcher):
+        super().__init__(dispatcher)
+
+    async def echo_message(self, msg: types.Message):
+        await self.bot.send_message(msg.from_user.id, msg.text)
+
+    def handler(self):
+        # Самая последняя регистрация
+        self.dp.register_message_handler(self.echo_message)

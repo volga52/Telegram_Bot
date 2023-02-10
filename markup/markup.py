@@ -79,10 +79,11 @@ class Keyboards:
         button01 = KeyboardButton('/test')
         button02 = KeyboardButton('/info')
         button03 = KeyboardButton('/Описание')
+        button04 = KeyboardButton('/animal')
 
         self.markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                           one_time_keyboard=True)
         self.markup.add(button01).add(button02).insert(button03)
-        self.markup.row(button01, button02, button03)
+        self.markup.row(button01, button04, button03)
 
         return self.markup
