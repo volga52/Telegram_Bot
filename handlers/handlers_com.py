@@ -76,6 +76,10 @@ class HandlersCommands(Handler):
         await self.bot.send_message(message.from_user.id, message_text,
                                     parse_mode=ParseMode.MARKDOWN_V2)
 
+    async def process_test_inline_command(self, message: types.Message):
+        await message.answer(text='Inline меню',
+                             reply_markup=self.markup.first_inline_kb())
+
     def handler(self):
         self.dp.register_message_handler(self.process_start_command,
                                          commands=['start'])
@@ -97,6 +101,8 @@ class HandlersCommands(Handler):
                                          commands=['testpre'])
         self.dp.register_message_handler(self.process_description_command,
                                          commands=['description', 'Описание'])
+        self.dp.register_message_handler(self.process_test_inline_command,
+                                         commands=['testinline'])
 
     # @dp.message_handler(content_types=ContentType.ANY)
     # async def unknown_message(msg: types.Message):

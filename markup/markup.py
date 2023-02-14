@@ -1,3 +1,5 @@
+from aiogram import types
+
 from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton
@@ -87,3 +89,32 @@ class Keyboards:
         self.markup.row(button01, button04, button03)
 
         return self.markup
+
+    @staticmethod
+    def set_inline_btn(text, call_name):
+        """
+        Создает и возвращает инлайн-кнопку по входным параметрам
+        """
+        # return InlineKeyboardButton(str(name), callback_data=str(name.id))
+        return InlineKeyboardButton(str(text), callback_data=str(call_name))
+
+    async def url_command(self, message: types.Message):
+        url_kb = InlineKeyboardMarkup(row_width=1)  # ширина ряда
+
+        url_button1 = InlineKeyboardButton(text='Ссылка1',
+                                           url='http://youtube.com')
+        url_button2 = InlineKeyboardButton(text='Ссылка2', url='http://ya.ru')
+        url_kb.add(url_button1, url_button2)
+
+        # await message.answer('Ссылочки', reply_markup=url_kb)
+        return url_kb
+
+    def first_inline_kb(self):
+        kb_first = InlineKeyboardMarkup()
+
+        but_1 = self.set_inline_btn('PRESSED', 'users_url')
+        # but_1 = InlineKeyboardButton(text='PRESSED', callback_data='users_url')
+
+        kb_first.add(but_1)
+
+        return kb_first
