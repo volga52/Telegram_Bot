@@ -19,6 +19,14 @@ class HandlersFSM(Handler):
         await FSMFirst.category.set()
         await message.reply('Какое у тебя животное?')
 
+    async def process_cancel_animal(self, message: types.Message,
+                                    state: FSMContext):
+        current_state = await state.get_state()
+        if current_state is None:
+            return
+        await state.finish()
+        await message.reply('OK')
+
     async def animal_category(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
             data['category'] = message.text
@@ -54,17 +62,14 @@ class HandlersFSM(Handler):
 
         await state.finish()
 
-    async def process_cancel_animal(self, message: types.Message,
-                                    state: FSMContext):
-        current_state = await state.get_state()
-        if current_state is None:
-            return
-        await state.finish()
-        await message.reply('OK')
-
     def handler(self):
         self.dp.register_message_handler(self.dialog_animal_start,
                                          commands=['animal'], state=None)
+        self.dp.register_message_handler(self.process_cancel_animal, state='*',
+                                         commands=['cancel'])
+        self.dp.register_message_handler(
+            self.process_cancel_animal, Text(equals=['cancel'],
+                                             ignore_case=True), state='*')
         self.dp.register_message_handler(self.animal_category,
                                          state=FSMFirst.category)
         self.dp.register_message_handler(self.animal_name,
@@ -76,8 +81,3 @@ class HandlersFSM(Handler):
         self.dp.register_message_handler(self.animal_description,
                                          state=FSMFirst.description)
         # 2 следующие команды срабатывает, только в состоянии photo
-        self.dp.register_message_handler(self.process_cancel_animal, state='*',
-                                         commands=['cancel'])
-        self.dp.register_message_handler(
-            self.process_cancel_animal, Text(equals=['cancel'],
-                                             ignore_case=True), state='*')

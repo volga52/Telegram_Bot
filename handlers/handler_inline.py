@@ -20,11 +20,14 @@ class HandlerInline(Handler):
     def set_inline_btn(name):
         """
         Создает и возвращает инлайн-кнопку по входным параметрам
+        ...
+        Функция присутствует для понимания процесса работы кнопок
+        Используемая в коде функция находится в файле markup.py
         """
         # return InlineKeyboardButton(str(name), callback_data=str(name.id))
         return InlineKeyboardButton(str(name), callback_data=str(name))
 
-    async def terror(self, data):
+    async def handle_inline_buttons(self, data):
         await self.dp.bot.answer_callback_query(data.id,
                                                 'Нажата inline кнопка')
         await self.dp.bot.send_message(data.from_user.id,
@@ -36,4 +39,4 @@ class HandlerInline(Handler):
         @dp.callback_query_handler(lambda call: True)
         # @dp.callback_query_handler(lambda call: call.data == 'users_url')
         async def process_first_inline_button(call: types.CallbackQuery):
-            await self.terror(call)
+            await self.handle_inline_buttons(call)
