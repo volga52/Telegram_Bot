@@ -34,9 +34,8 @@ class HandlersCommands(Handler):
         text = 'Инфа отправлена'
         print(message.to_python())
 
-        send_message = await message.answer(text, parse_mode='HTML',
-                                            reply_markup=ReplyKeyboardRemove())
-        print(send_message.to_python())
+        await message.answer(text, parse_mode='HTML',
+                             reply_markup=ReplyKeyboardRemove())
 
     async def process_description_command(self, message: types.Message):
         await message.answer(DESCRIPTION, parse_mode="HTML")
